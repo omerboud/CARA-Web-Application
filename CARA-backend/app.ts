@@ -1,8 +1,9 @@
-import * as express from 'express';
-import * as cors from 'cors';
-import * as dotenv from 'dotenv';
-import * as bodyParser from 'body-parser';
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import bodyParser from 'body-parser';
 import mongoose from 'mongoose'; 
+import AuthRoutes from './routes/auth_routes';
 
 dotenv.config();
 
@@ -24,5 +25,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+app.use('/api/auth', AuthRoutes);
 
 export default app;
