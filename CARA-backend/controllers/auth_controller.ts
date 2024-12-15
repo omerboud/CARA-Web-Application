@@ -7,13 +7,19 @@ dotenv.config();
 
 const register = async (req: Request , res: Response , next: NextFunction) => {
     try {
-        const {username , password , email} = req.body;
+        const { username, password, email, first_name, last_name, address, phone_number, date_of_birth, gender } = req.body;
         const user: UserInterface = new User({
             username,
             password,
             email,
-            productsPosted: []
+            first_name,
+            last_name,
+            address,
+            phone_number,
+            date_of_birth,
+            gender
         });
+
         const existingUser = await User.findOne({username});
         if(existingUser){
             res.status(400).json({message: 'User already exists'});

@@ -20,7 +20,12 @@ const testUser: Partial<UserType> = {
     email: "test@user.com",
     password: "testpassword",
     username: "testuser",
-    productsPosted: [],
+    first_name: "Test",
+    last_name: "User",
+    address: "Test Address",
+    phone_number: "1234567890",
+    date_of_birth: new Date("1990-01-01"),
+    gender: "Male"
 };
 
 describe('Auth Routes', () => {
@@ -70,6 +75,61 @@ describe('Auth Routes', () => {
             .send({
                 ...testUser,
                 username: '',
+            });
+
+        expect(response.status).not.toBe(201);
+    });
+
+    test('Register fails with missing first name', async () => {
+        const response = await request(app)
+            .post('/api/auth/register')
+            .send({
+                ...testUser,
+                first_name: '',
+            });
+
+        expect(response.status).not.toBe(201);
+    });
+
+    test('Register fails with missing last name', async () => {
+        const response = await request(app)
+            .post('/api/auth/register')
+            .send({
+                ...testUser,
+                last_name: '',
+            });
+
+        expect(response.status).not.toBe(201);
+    });
+
+    test('Register fails with missing address', async () => {
+        const response = await request(app)
+            .post('/api/auth/register')
+            .send({
+                ...testUser,
+                address: '',
+            });
+
+        expect(response.status).not.toBe(201);
+    });
+
+    test('Register fails with missing phone number', async () => {
+        const response = await request(app)
+            .post('/api/auth/register')
+            .send({
+                ...testUser,
+                phone_number: '',
+            });
+
+        expect(response.status).not.toBe(201);
+    });
+
+    test('Register fails with missing date of birth', async () => {
+        const response = await request(app)
+            .post('/api/auth/register')
+            .send({
+                ...testUser,
+                date_of_birth: '',
             });
 
         expect(response.status).not.toBe(201);
